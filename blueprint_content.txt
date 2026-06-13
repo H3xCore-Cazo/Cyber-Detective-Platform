@@ -1,0 +1,1546 @@
+CYBER DETECTIVE
+Complete Master Blueprint
+The Tiny Grains of Wheat Edition  —  v2.0
+
+Project Type
+Cybersecurity Education Platform
+Category
+DFIR Cyber Range
+Vision
+"Hack The Box for Cyber Detectives"
+Status
+Blueprint / Active Development
+
+Every attack leaves a trace. Can you find it?
+
+Table of Contents
+
+
+
+1. Core Philosophy
+Cyber Detective is built on a fundamentally different educational model than existing cybersecurity platforms. While other platforms teach attack skills, Cyber Detective builds investigative minds.
+
+1.1 The Paradigm Shift
+Traditional Platform
+Cyber Detective
+Attack a vulnerable machine
+Receive a real incident to investigate
+Exploit → Capture Flag
+Analyze → Trace → Report
+Learn offensive tools
+Learn investigative thinking
+Hacker mindset
+Analyst / Detective mindset
+Solo exploit
+Full incident reconstruction
+
+1.2 The Investigation Flow
+Step 1
+Incident Happens — a simulated breach occurs inside the lab environment
+Step 2
+Collect Evidence — user gathers logs, PCAP, memory dumps, emails
+Step 3
+Analyze Artifacts — user inspects files, applies forensic techniques
+Step 4
+Trace Attacker — timeline reconstruction, lateral movement mapping
+Step 5
+Find Initial Access — identify patient zero, entry vector
+Step 6
+Identify Persistence — find backdoors, scheduled tasks, registry keys
+Step 7
+Determine Impact — what data was touched, exfiltrated, modified
+Step 8
+Write Incident Report — structured DFIR report with IOCs and recommendations
+
+1.3 Who The User Becomes
+SOC Analyst
+Incident Responder
+DFIR Investigator
+Threat Hunter
+Malware Analyst
+Blue Team Operator
+
+1.4 Why This Succeeds
+Companies hire people who can analyze incidents and write reports — not just run tools
+DFIR is a rapidly growing field with increasing demand and shortage of trained professionals
+The story-based format makes learning engaging — more like a detective game than a course
+No other major platform focuses exclusively on the defensive / investigative side
+
+2. User Experience Journey
+2.1 Complete Navigation Flow
+The user journey from first visit to completed investigation:
+
+Home Page
+Hero section, featured cases, live stats (active investigators, labs running)
+Browse Cases
+Filterable grid — by category, difficulty, tags, solved status
+Case Detail
+Story, objectives, evidence list, lab status, leaderboard
+Start Lab
+One-click provisioning — system creates environment automatically
+Investigation
+Live lab with terminal/RDP, evidence explorer, AI assistant, flag submission
+Results
+Score breakdown, time analysis, comparison to others, report feedback
+Profile
+XP history, solved cases, achievements, badges, global rank
+
+2.2 Homepage Layout
+The homepage communicates value immediately:
+Hero: "CYBER DETECTIVE — Become the investigator. Every attack leaves a trace. Can you find it?"
+Two CTAs: [Start Investigating] and [Browse Cases]
+Live stats bar: number of investigators, active labs, completion rate
+Featured cases: 3 highlighted cases across difficulties
+Category showcase: quick visual of all 7 case categories
+
+2.3 Case Detail Page
+Before starting a lab, users see the full case context:
+Case ID and title with difficulty badge and estimated time
+Story section — narrative describing the incident (Markdown rendered)
+Objectives list — numbered goals (answers hidden)
+Evidence preview — files available for download or viewing
+Lab environment description — what machines/tools are available
+Leaderboard — top solvers with time and score
+[Start Investigation] button — triggers lab provisioning
+
+3. User Account System
+3.1 Authentication Features
+Sign up (Email / Username / Password)
+Login with remember-me option
+OAuth — Google, GitHub
+Email verification on signup
+Password reset via email link
+Two-Factor Authentication (2FA) — TOTP
+Session management — multiple devices, revocation
+
+3.2 Public Profile Fields
+username
+Unique handle, shown on leaderboards (e.g., @cyber_hawk)
+display_name
+Full display name
+avatar
+Uploaded image or Gravatar fallback
+bio
+Up to 500 characters, Markdown supported
+country
+Flag displayed next to username
+experience_level
+Beginner / Intermediate / Advanced / Expert
+social_links
+LinkedIn, GitHub, Twitter, personal website
+join_date
+Member since date
+
+3.3 Private Statistics Tracked
+total_xp
+Cumulative experience points earned across all cases
+global_rank
+Position on main leaderboard
+cases_solved
+Total cases with at least one flag submitted
+accuracy_percentage
+Correct flag submissions vs total attempts
+investigation_streak
+Consecutive days with at least one submission
+total_hours_investigating
+Aggregate time spent inside active labs
+hints_used_total
+Total hints consumed (affects accuracy metric)
+avg_time_per_case
+Average minutes from lab start to last flag
+solved_by_category
+Breakdown of completions per case category
+achievements_count
+Total badges and achievements earned
+
+3.4 Privacy Settings
+Toggle profile public / private
+Choose to show or hide solved cases list
+Choose to show or hide global rank
+Data export (GDPR-compliant full export)
+Account deletion with 30-day grace period
+
+4. Investigation Cases
+4.1 Case Data Structure
+Every case contains the following fields:
+id
+CASE-001 format, used in URLs and API
+title
+Human-readable title, e.g., "Active Directory Breach"
+slug
+URL-safe version, e.g., "active-directory-breach"
+category
+One of 7 defined categories (see Section 5)
+difficulty
+Beginner / Easy / Medium / Advanced / Expert
+estimated_time
+Minutes — shown to user before starting
+points / xp
+Both tracked (same value currently, may diverge)
+story
+Full narrative in Markdown — sets the scene
+objectives_count
+Number of tasks/questions
+flags_count
+Number of flag submissions required
+tags
+Array: ["active-directory", "lateral-movement", "kerberos"]
+prerequisites
+Array of case IDs recommended before this one
+thumbnail_url
+Cover image for case card
+rating
+Aggregate user rating (1–5 stars)
+solves_count
+How many users have completed it
+author_id
+Creator (admin or community contributor in marketplace phase)
+
+4.2 Difficulty Levels
+Level
+Color
+XP Range
+Time Range
+Typical Skills
+Beginner
+Green
+50 – 150 XP
+15 – 30 min
+Log reading, basic grep, simple IOCs
+Easy
+Blue
+150 – 300 XP
+30 – 60 min
+Multi-log correlation, file analysis
+Medium
+Orange
+300 – 600 XP
+60 – 90 min
+Memory forensics, PCAP, AD basics
+Advanced
+Red
+600 – 1000 XP
+90 – 150 min
+Full DFIR workflow, multi-machine
+Expert
+Black
+1000 – 2000 XP
+150 – 240 min
+Nation-state TTPs, cloud forensics
+
+4.3 Case Tag System
+Cases carry two types of tags:
+◆ Category Tags
+network-forensics  |  memory-forensics  |  disk-forensics
+malware-analysis  |  cloud-incident  |  email-forensics
+log-analysis  |  threat-hunting
+
+◆ Technique Tags (MITRE ATT&CK aligned)
+initial-access  |  persistence  |  privilege-escalation
+lateral-movement  |  data-exfiltration  |  command-and-control
+defense-evasion  |  discovery
+
+◆ Tool Tags
+wireshark  |  volatility  |  splunk  |  elk-stack
+sysinternals  |  kape  |  autopsy  |  zeek
+
+5. Case Categories (Detailed)
+5.1 Network Forensics
+◆ Evidence Types
+PCAP files — full traffic capture
+NetFlow records
+Firewall logs (iptables, pfSense, Palo Alto)
+Proxy logs (Squid, Zscaler)
+DNS logs (BIND, PowerDNS)
+IDS/IPS alerts (Snort, Suricata)
+◆ Skills Tested
+Extract suspicious packets and follow TCP/UDP streams
+Identify C2 communication patterns
+Detect data exfiltration via protocol analysis
+Reconstruct files transmitted over the network
+Analyze SSL/TLS certificates and identify port scanning
+5.2 Email Forensics
+◆ Evidence Types
+.eml files (raw emails), MSG files (Outlook format)
+PST/OST archives, Exchange logs
+Mimecast / Proofpoint logs, SPF/DKIM/DMARC records
+◆ Skills Tested
+Analyze email headers and identify spoofing attempts
+Extract embedded URLs and attachment macros
+Timeline reconstruction from email chains
+Identify phishing indicators and track reply-to chains
+5.3 Windows Forensics
+◆ Evidence Types
+Event Logs: Security, System, Application (EVTX)
+Sysmon logs: Event IDs 1, 3, 7, 10, 11, 12, 13, 22
+Registry Hives: SAM, SYSTEM, SOFTWARE, NTUSER.DAT
+Prefetch files (.pf), Amcache.hve, Shimcache, RecentFileCache.bcf
+$MFT (Master File Table), USN Journal, $LogFile
+Pagefile.sys, Hiberfil.sys, Memory dumps (.dmp, .raw)
+Recycle Bin artifacts, LNK files, Jump Lists
+Browser history (Chrome, Edge, Firefox), PowerShell history
+Scheduled Tasks, Services configuration, WMI repository
+◆ Key Event IDs
+4624/4625 — Successful/failed logon analysis
+4688 — Process creation (command line logging)
+4698/4702 — Scheduled task created/modified
+7045 — New service installed
+4768/4769 — Kerberos ticket requests
+5.4 Linux Forensics
+◆ Evidence Types
+auth.log / secure, syslog / messages, bash_history, zsh_history
+.bashrc / .profile modifications, crontab (user + system)
+/var/log/apt/history.log, /var/log/dpkg.log
+nginx / apache logs, mysql / postgres logs
+wtmp / utmp / btmp, lastlog, journalctl output
+/etc/passwd, /etc/shadow, .ssh/authorized_keys, .ssh/known_hosts
+Docker logs, Kubernetes audit logs
+◆ Skills Tested
+sudo abuse detection, cron persistence, SSH key backdoors
+Web shell detection, reverse shell identification
+Package manager log analysis, privilege escalation path tracing
+5.5 Malware Investigation
+◆ Evidence Types
+Suspicious executables (PE files, ELF binaries)
+PowerShell scripts, VBA macros, obfuscated JavaScript
+Hashing (MD5, SHA1, SHA256), YARA rules
+VirusTotal results, HybridAnalysis sandbox reports
+String outputs, Import/Export tables, API call traces
+Process Monitor logs, Registry change logs, Network behavior
+◆ Skills Tested
+Static analysis (without executing the file)
+Dynamic analysis (behavioral, sandbox-based)
+IOC extraction (IPs, domains, hashes, file paths)
+Malware family identification, payload decryption
+5.6 Cloud Incident Response
+◆ Evidence Types
+AWS: CloudTrail logs, GuardDuty findings, VPC Flow Logs, S3 access logs
+Azure: Activity Logs, AD sign-in logs, Microsoft 365 audit logs
+GCP Audit Logs, Kubernetes audit logs, Container logs
+IAM policy changes, Security group modifications, Serverless function logs
+◆ Skills Tested
+IAM role abuse detection, unusual API call pattern analysis
+Storage bucket exposure investigation, compute instance compromise
+Serverless function injection, cloud resource enumeration
+5.7 Active Directory Attacks
+◆ Evidence Types
+Domain Controller event logs
+Kerberos logs: Event IDs 4768, 4769, 4770, 4771
+LSASS access logs (simulated), Group Policy and AD replication logs
+PowerShell logs (Event ID 4104), Sysmon on DCs
+BloodHound output (JSON), Mimikatz evidence (simulated)
+◆ Attack Techniques Covered
+Kerberoasting, AS-REP roasting, Pass-the-Hash, Pass-the-Ticket
+DCSync, DCShadow, Golden Ticket, Silver Ticket
+ACL abuse, GPO abuse, Skeleton Key detection
+
+6. Evidence System
+6.1 Evidence Explorer UI
+The evidence explorer is a file manager inside the case page, available before and during the lab.
+Tree view of folders and files
+Each file shows: filename, type icon, size, [Preview] and [Download] buttons
+Search bar with regex support to find keywords across all files
+Filter by file type (logs, network, email, documents, memory)
+AI Analysis panel: AI surfaces notable observations from evidence
+
+6.2 Evidence File Types Supported
+Extension
+Type
+Viewer Available
+Notes
+.evtx
+Windows Event Log
+Yes — parsed viewer
+Shows EventID, time, user, message
+.pcap
+Packet Capture
+Yes — packet table
+Filter by IP, protocol, port
+.eml
+Email
+Yes — rendered + raw
+Headers, body, attachments
+.log / .txt
+Text Logs
+Yes — syntax highlighted
+Search with Ctrl+F
+.json
+JSON Data
+Yes — tree viewer
+Collapse/expand nodes
+.raw / .dmp
+Memory Dump
+Limited — hex viewer
+Volatility in lab
+.pdf
+PDF Document
+Yes — pdf.js
+Inline rendering
+.docx
+Word Document
+Yes — text extraction
+Shows content
+.zip
+Archive
+Yes — file listing
+Extract to inspect
+.csv
+Tabular Data
+Yes — table view
+Sortable columns
+
+6.3 Evidence Metadata
+filename
+Internal storage name
+original_name
+Display name shown to user
+file_type
+MIME type and extension category
+file_size
+Bytes — displayed as human-readable KB/MB
+file_hash
+SHA-256 hash — users can verify integrity
+is_corrupted
+Optional: a partially broken file for realism
+is_decoy
+Optional: a misleading file that is not relevant
+storage_path
+S3 or filesystem path — never exposed to user
+
+6.4 Evidence Injection (Dynamic Labs)
+For interactive labs, evidence is injected into the running environment at startup:
+Clone base template container or VM
+Copy evidence files to /evidence/ (Linux) or C:\Evidence\ (Windows)
+Append attacker-generated log entries to real log files
+Insert malicious PCAP packets into capture file
+Plant decoy files to add realism
+Correct file timestamps (MAC times) to match scenario timeline
+Generate chain-of-custody metadata file
+
+6.5 User Evidence Features
+Tag any file or line as important evidence
+Add personal notes attached to specific files
+Timeline view — correlate events across all evidence files by timestamp
+Side-by-side comparison view for two files simultaneously
+
+7. Objectives & Flag System
+7.1 Objective Types
+flag
+Exact string match (case-insensitive or regex)
+multiple_choice
+Select from 4 options — only one correct
+text
+Free text answer validated by regex pattern
+number
+Numeric answer with optional tolerance range
+report_section
+Structured text graded by AI — for advanced cases
+
+7.2 Objective Structure
+order_number
+Controls display sequence (unlock sequentially or all at once)
+title
+Short objective label shown in the UI
+description
+Full question text with context clues
+points
+XP awarded on correct answer
+hints
+Array of progressive hints (from vague to specific)
+hint_cost
+XP deducted per hint revealed (default: 10 XP)
+depends_on
+Objective IDs that must be completed first (optional gating)
+required_for_completion
+If false, objective is optional bonus
+
+7.3 Flag Format Standards
+Standard:    CD{3v1d3nc3_b4s3d_1nv3st1g4t10n}
+Hex:         f47f8a2c9e1b3d5a6c8b0d2e4f9a7c1b
+Numeric:     184729
+Free text:   validated by server-side regex (never shown to user)
+
+7.4 Scoring Algorithm
+Base Points
+Defined per objective (e.g., 100 XP)
+Time Bonus
++20 XP if solved faster than the case average
+First Blood
++50 XP for being the very first solver globally
+No Hints Bonus
++25 XP if solved without using any hints
+Perfect Report
++50 XP for AI-scored report above 90/100
+Hint Penalty
+-10 XP per hint consumed (stacks)
+Lab Expired
+Remaining objectives score at 50% if lab timed out
+
+7.5 Anti-Cheat Measures
+All flag validation happens server-side only — flag values never sent to client
+Attempt tracking — excessive wrong attempts flagged for review
+Time-based anomaly detection — unusually fast solves reviewed
+IP-based rate limiting on flag submission endpoint
+Browser fingerprinting (future) for repeat offender tracking
+
+8. Investigation Report System
+The Investigation Report is the feature that most differentiates Cyber Detective from every other platform. It mirrors what a real DFIR analyst submits after an incident.
+
+8.1 Report Sections
+Executive Summary — 1-paragraph overview written for non-technical management
+Incident Timeline — Chronological list of events with timestamps
+Initial Access — How the attacker entered the environment
+Affected Systems — List of compromised hostnames, IPs, accounts
+Attacker Actions — Detailed TTPs observed during the investigation
+Data Impact — What data was accessed, modified, or exfiltrated
+Indicators of Compromise (IOCs) — Structured: IPs, domains, file hashes, paths
+Root Cause Analysis — Why was the attack possible?
+Recommendations — Actionable steps to prevent recurrence
+Appendix — Raw findings, full hash list, raw log excerpts
+
+8.2 AI Report Scoring
+After submission, an AI model grades the report across 5 dimensions:
+Completeness
+Are all sections filled with meaningful content?
+Accuracy
+Do the findings match what the evidence actually shows?
+Professionalism
+Grammar, structure, clarity, and appropriate tone
+Technical Depth
+Specific findings, exact IOCs, precise event IDs
+Recommendations Quality
+Are suggestions actionable and specific?
+
+Scoring range: 0 – 100. Score breakdown shown with per-section feedback. Score contributes to total XP for the case.
+
+8.3 Report Library
+Sample high-scoring report — shown as best-practice reference after submission
+Sample low-scoring report — shows common mistakes
+Real-world redacted incident reports — inspiration and comparison
+
+9. Lab System — The Heart of the Platform
+The lab system is the most technically complex component. When a user clicks [Start Investigation], the system creates an isolated, fully configured environment in real-time.
+
+9.1 Lab Types Overview
+Type
+Name
+Technology
+Startup Time
+Use Case
+A
+Static Evidence
+Files only, no VM
+< 1 second
+Beginners, email/log analysis
+B
+Linux Interactive
+Docker + ttyd
+5 – 15 seconds
+Linux forensics, IR basics
+C
+Multi-Machine
+Docker Compose / K8s
+30 – 60 seconds
+Lateral movement, networking
+D
+Windows AD
+KVM/Proxmox VMs + Guacamole
+2 – 5 minutes
+AD attacks, Windows forensics
+E
+Memory Forensics
+Docker + Volatility
+10 – 30 seconds
+Malware hunting, rootkits
+F
+Cloud Simulation
+Static logs + mock console
+< 1 second
+AWS/Azure IR scenarios
+
+9.2 Type A — Static Evidence
+No infrastructure required — evidence files served from CDN/storage
+Infinitely scalable — 10,000 users can use the same lab simultaneously
+Best for: entry-level cases, pure log analysis, email forensics
+Evidence viewer is the primary interaction surface
+
+9.3 Type B — Linux Interactive Lab
+◆ Configuration
+Docker image: Ubuntu 22.04 LTS with forensics tools pre-installed
+Resource limits: 0.5 CPU core, 512 MB RAM, 10 GB disk
+Evidence volume: mounted read-only at /evidence/
+Browser access: ttyd exposes bash terminal at /lab/{sessionId}/terminal
+◆ Pre-installed Tools
+Text analysis: grep, awk, sed, cut, sort, uniq
+Binary analysis: xxd, hexdump, strings, binwalk, foremost
+Network: tcpdump, ngrep, tshark, netstat, ss, lsof
+Misc: file, stat, find, exiftool, jq
+
+9.4 Type C — Multi-Machine Lab
+◆ Example: "Web Application Breach" Topology
+Container 1: Attacker workstation (Kali Linux, read-only)
+Container 2: Web server (Ubuntu + Nginx + PHP app)
+Container 3: Database server (PostgreSQL)
+Container 4: Internal workstation (Ubuntu)
+Network: isolated bridge, subnet 172.18.X.0/24, no internet
+User accesses via browser terminal to investigator container
+
+9.5 Type D — Windows Active Directory Lab
+◆ Environment Components
+Domain Controller: Windows Server 2022 (domain: cyberdetective.local)
+Workstation: Windows 10/11 (joined to domain)
+File Server: Windows Server 2019
+Attacker machine: Kali Linux or Windows (read-only for investigation)
+◆ Browser Access
+Apache Guacamole bridges Browser → RDP → Windows VM
+User sees full Windows desktop inside the browser — no client install required
+RDP credentials generated uniquely per session
+VM snapshots allow fast cloning (base image cloned per user)
+
+9.6 Lab Session Data
+id
+Unique session ID in format sess_abc123
+status
+pending → starting → running → paused → expiring → terminated
+container_id
+Docker container ID (for Linux labs)
+vm_id
+Proxmox VM ID (for Windows labs)
+ip_address
+Lab internal IP assigned to user's investigator machine
+username / password
+Auto-generated unique credentials per session
+connection_url
+Full URL returned to client for lab access
+flags_submitted
+JSON array of submitted flags with timestamps
+score
+Running total XP earned in this session
+started_at
+When lab began running
+expires_at
+Hard deadline — lab terminated after this regardless of user action
+last_heartbeat
+Updated every 30 seconds — detects abandoned sessions
+
+10. Lab Orchestrator — The Brain
+The Lab Orchestrator is a dedicated service (separate from the Next.js frontend) responsible for all infrastructure lifecycle management.
+
+10.1 Orchestrator Responsibilities
+Create and configure lab sessions on demand
+Allocate resources (containers or VMs) based on lab type
+Create isolated network per session
+Inject evidence files into running environments
+Generate and securely store session credentials
+Monitor session health via heartbeat
+Auto-terminate expired sessions (cron every 60 seconds)
+Clean up resources (stop containers, remove networks, delete VMs)
+Queue management when resources are at capacity
+Track usage metrics for cost analysis and scaling decisions
+
+10.2 Full Lab Start Flow
+Step 1
+User clicks [Start Investigation] → POST /api/labs/start
+Step 2
+Validate: user authenticated, case exists, user within concurrent lab limit
+Step 3
+Create lab_sessions record in database (status: pending)
+Step 4
+Resource scheduler checks available capacity
+Step 5
+If capacity available: proceed; if full: add to queue, return position
+Step 6
+Create isolated Docker network or VLAN for this session
+Step 7
+Start container(s) or clone/start VM(s)
+Step 8
+Run evidence injection script inside environment
+Step 9
+Generate unique username/password for this session
+Step 10
+Start ttyd or configure Guacamole connection
+Step 11
+Update database: status = running, store connection_url and credentials
+Step 12
+Return connection URL to client — lab opens in browser
+
+10.3 Session Lifecycle Management
+Heartbeat
+Client sends ping every 30s; if missed for 5 min, lab paused
+Warning
+At T-5 minutes: notification sent via WebSocket to user
+Expiration
+At T=0: status → expiring, final score saved
+Cleanup
+Cron job: stop containers/VMs, remove networks, update DB → terminated
+Extension
+Pro users may extend by 30 or 60 minutes once per session
+Pause
+Save state if supported (Docker) — VM snapshots for Windows
+
+10.4 Scaling Architecture
+Phase 1 — Single VPS (MVP)
+1 server: 8 vCPU, 32 GB RAM
+Docker Engine directly
+Max ~50 concurrent Linux labs
+No Windows AD labs yet
+Phase 2 — Multi-Server
+Kubernetes cluster: 3 worker nodes
+Separate VM host (Proxmox) for Windows AD labs
+PostgreSQL with read replica
+Redis for queuing and session cache
+Phase 3 — Cloud Scale
+AWS EKS or GKE for container orchestration
+Spot instances for cost-efficient Linux labs
+Dedicated VM pool for Windows AD (reserved instances)
+Auto-scaling based on queue depth
+Multi-region for low latency globally
+
+11. Browser Access Technologies
+11.1 Linux Terminal — ttyd
+Project
+tsl0922/ttyd (open source)
+Protocol
+WebSocket over HTTPS
+Frontend
+xterm.js (runs in browser)
+Usage
+ttyd --port 8080 --credential user:pass bash
+Integration
+Proxied through Nginx — user sees /lab/{sessionId}/terminal
+Alternative
+Wetty (Node.js based, more features, more complex)
+
+11.2 Windows RDP — Apache Guacamole
+Project
+Apache Guacamole (open source, ASF)
+Components
+guacd daemon + guacamole-client web app
+Protocol Bridge
+Browser ↔ WebSocket ↔ guacamole-client ↔ guacd ↔ RDP/VNC/SSH
+No client required
+User needs only a browser — no RDP client installed
+Connection config
+Protocol: rdp, hostname: VM IP, port: 3389, credentials per session
+Resolution
+Default 1280x900, configurable up to 1920x1080
+Security
+Guacamole token auth — each token valid for one session only
+
+11.3 Evidence Viewer (Static Labs)
+Built in React — mimics a file explorer without needing a terminal
+PCAP viewer: packet table with source, destination, protocol, length, info columns
+EVTX viewer: EventID, time, channel, user, computer, message parsed and displayed
+Log viewer: line numbers, timestamp detection, syntax highlighting, search
+Email viewer: parsed headers table + rendered HTML body + attachment list
+JSON viewer: collapsible tree with key highlighting
+Hex viewer: for binary files — offset, hex, ASCII columns
+
+12. Technology Stack
+12.1 Frontend
+Technology
+Purpose
+Why
+Next.js 14+ (App Router)
+Full-stack React framework
+Server components, API routes, streaming
+TypeScript 5+
+Type safety across codebase
+Fewer runtime bugs, better DX
+Tailwind CSS
+Utility-first styling
+Fast, consistent design
+shadcn/ui
+Component library
+Accessible, customizable components
+xterm.js
+Terminal emulation
+Used with ttyd for browser terminal
+Monaco Editor
+Log/code viewer
+Syntax highlighting, search, large file support
+Zustand
+Client state
+Lightweight, simple API
+TanStack Query
+Server state + caching
+Automatic refetching, loading states
+Framer Motion
+Animations
+Smooth transitions, progress feedback
+recharts
+Data visualization
+Score charts, timeline visualization
+
+12.2 Backend
+Technology
+Purpose
+Why
+Next.js API Routes
+REST API layer
+Co-located with frontend
+Supabase Auth
+Authentication
+Email/OAuth, row-level security
+PostgreSQL 15+ via Supabase
+Primary database
+Relational, powerful, hosted
+Prisma ORM
+Database access layer
+Type-safe queries, migrations
+Redis / Upstash
+Queue + rate limiting + cache
+Lab job queue, session cache
+BullMQ
+Background job queue
+Lab start/stop jobs, cleanup cron
+Resend + React Email
+Transactional email
+Verification, notifications
+
+12.3 Infrastructure
+Technology
+Purpose
+Phase
+Docker Engine
+Linux lab containers
+Phase 1+
+Docker Compose
+Local dev + multi-container labs
+Phase 1+
+ttyd
+Browser terminal for Linux
+Phase 2+
+Apache Guacamole
+Browser RDP for Windows
+Phase 4+
+Proxmox VE
+Windows VM host
+Phase 4+
+Kubernetes (K8s)
+Container orchestration at scale
+Phase 6
+Nginx
+Reverse proxy, SSL termination
+Phase 1+
+Certbot / Let's Encrypt
+SSL certificates
+Phase 1+
+Supabase Storage / AWS S3
+Evidence file storage
+Phase 1+
+Cloudflare
+CDN, DDoS protection, DNS
+Phase 1+
+
+12.4 Monitoring Stack
+Tool
+Purpose
+Prometheus
+Metrics collection from all services
+Grafana
+Dashboard visualization for metrics
+Loki / Better Stack
+Centralized log aggregation
+Sentry
+Application error tracking
+Uptime Robot
+External uptime monitoring with alerts
+Node Exporter
+Server hardware metrics (CPU, RAM, disk)
+
+13. Database Schema (Complete)
+All tables use PostgreSQL. UUID primary keys throughout. Row Level Security (RLS) enabled via Supabase.
+
+13.1 Users & Authentication Tables
+users
+id, email, username, password_hash, email_verified, role, subscription_tier, subscription_expires_at, created_at, last_login, is_active
+user_profiles
+user_id(FK), display_name, bio, avatar_url, country_code, experience_level, github_username, linkedin_url, twitter_username, website_url, notification_settings(JSON)
+user_statistics
+user_id(FK), total_xp, total_cases_solved, total_flags_found, total_hints_used, total_investigation_time, accuracy_percentage, current_streak, longest_streak, global_rank, country_rank
+user_sessions
+id, user_id(FK), token(unique), ip_address, user_agent, created_at, expires_at, is_revoked
+
+13.2 Cases & Content Tables
+cases
+id(CASE-001 format), title, slug(unique), description, story(Markdown), category, difficulty, estimated_time, points, xp, author_id(FK), created_at, published_at, is_published, is_featured, tags(array), prerequisites(array), thumbnail_url, rating, solves_count, view_count
+objectives
+id, case_id(FK), order_number, title, description, type(flag/mc/text/report), points, hint_cost, hints(array), required_for_completion, depends_on(array of IDs)
+objective_options
+id, objective_id(FK), option_text, is_correct, order_number
+flags
+id, case_id(FK), flag_value(hashed), points, hint, order_number
+evidence
+id, case_id(FK), filename, original_name, file_type, file_size, file_hash(SHA256), mime_type, storage_path, is_corrupted, is_decoy, created_at
+
+13.3 Lab System Tables
+lab_templates
+id, case_id(FK), name, type(static/docker/multi/windows-ad), configuration(JSONB), resource_requirements(JSONB), timeout_minutes, max_concurrent_users
+lab_sessions
+id(sess_xxx), user_id(FK), case_id(FK), lab_template_id(FK), status, container_id, vm_id, ip_address, username, password, connection_url, flags_submitted(JSONB), score, started_at, expires_at, paused_at, terminated_at, last_heartbeat
+lab_activity
+id, session_id(FK), action(flag_submitted/hint_used/time_extended/paused), details(JSONB), created_at
+flag_submissions
+id, session_id(FK), flag_id(FK), flag_value, is_correct, attempts, points_awarded, created_at
+
+13.4 Reports & Community Tables
+investigation_reports
+id, session_id(FK), user_id(FK), case_id(FK), executive_summary, timeline(JSONB), initial_access, affected_systems(array), attacker_actions, data_impact, iocs(JSONB with ips/domains/hashes/paths), root_cause, recommendations(array), ai_score, ai_feedback, human_score, status, submitted_at, graded_at
+case_comments
+id, case_id(FK), user_id(FK), parent_id(FK, self-ref), content, is_spoiler, upvotes, created_at, updated_at
+achievements
+id, name(unique), description, badge_icon_url, xp_reward
+user_achievements
+user_id(FK), achievement_id(FK), earned_at (composite PK)
+guilds
+id, name(unique), tag(10 chars), description, avatar_url, leader_id(FK), created_at, member_count
+guild_members
+guild_id(FK), user_id(FK), role(leader/officer/member), joined_at (composite PK)
+follows
+follower_id(FK), following_id(FK), created_at (composite PK)
+
+13.5 Analytics & System Tables
+user_activity
+id, user_id(FK), event_type, event_data(JSONB), ip_address, user_agent, created_at
+system_metrics
+id, metric_name, metric_value, unit, recorded_at
+security_audit_log
+id, user_id(FK), action, ip_address, user_agent, details(JSONB), created_at
+
+13.6 Key Database Indexes
+idx_lab_sessions_user_id — fast lookup of user's active sessions
+idx_lab_sessions_status — cleanup cron filters by status
+idx_lab_sessions_expires_at — expiration check
+idx_cases_slug — URL routing
+idx_cases_difficulty — filtered browsing
+idx_evidence_case_id — loading evidence for a case
+idx_flag_submissions_session — score calculation
+
+14. API Endpoints
+14.1 Authentication
+Method
+Endpoint
+Description
+POST
+/api/auth/register
+Register new user
+POST
+/api/auth/login
+Login, return session token
+POST
+/api/auth/logout
+Invalidate session
+POST
+/api/auth/refresh
+Refresh expiring token
+POST
+/api/auth/verify-email
+Confirm email address
+POST
+/api/auth/forgot-password
+Send reset email
+POST
+/api/auth/reset-password
+Set new password
+GET
+/api/auth/me
+Get current authenticated user
+
+14.2 Cases
+Method
+Endpoint
+Description
+GET
+/api/cases
+List cases (paginated, filterable)
+GET
+/api/cases/:slug
+Get full case details
+GET
+/api/cases/:slug/evidence
+List evidence files for case
+GET
+/api/cases/:slug/objectives
+Get objectives (answers hidden)
+GET
+/api/cases/:slug/leaderboard
+Top solvers for this case
+
+14.3 Labs
+Method
+Endpoint
+Description
+POST
+/api/labs/start
+Start lab for case (body: {caseId})
+GET
+/api/labs/:sessionId
+Get session status and connection info
+POST
+/api/labs/:sessionId/extend
+Add 30 or 60 minutes (Pro only)
+POST
+/api/labs/:sessionId/pause
+Pause active session
+POST
+/api/labs/:sessionId/resume
+Resume paused session
+DELETE
+/api/labs/:sessionId
+Force terminate session
+GET
+/api/labs/:sessionId/activity
+Get session activity log
+POST
+/api/labs/:sessionId/heartbeat
+Client keepalive ping
+
+14.4 Flags & Reports
+Method
+Endpoint
+Description
+POST
+/api/labs/:sessionId/submit-flag
+Submit flag (body: {flagValue})
+GET
+/api/labs/:sessionId/flags
+List submitted flags for session
+POST
+/api/labs/:sessionId/use-hint
+Reveal next hint (deducts XP)
+POST
+/api/labs/:sessionId/report
+Submit investigation report
+GET
+/api/labs/:sessionId/report
+Get submitted report
+
+14.5 User & Admin
+Method
+Endpoint
+Description
+GET
+/api/user/profile
+Get own profile + statistics
+PUT
+/api/user/profile
+Update profile fields
+GET
+/api/user/sessions
+List active and past lab sessions
+GET
+/api/user/achievements
+Get earned achievements
+GET
+/api/leaderboard
+Global leaderboard (paginated)
+GET
+/api/admin/metrics
+System health metrics (admin only)
+GET
+/api/admin/labs/active
+List all running labs (admin only)
+POST
+/api/admin/labs/cleanup
+Force cleanup expired labs (admin only)
+POST
+/api/admin/cases
+Create new case with evidence (admin only)
+
+15. Security Principles
+15.1 Lab Isolation
+Every lab runs in its own isolated Docker network or VLAN
+No communication between different users' lab networks
+No internet access from lab containers (egress blocked)
+Containers run as non-root user (nobody / investigator)
+Resource limits enforced: CPU, RAM, disk, network bandwidth
+Seccomp profiles applied to restrict dangerous syscalls
+AppArmor or SELinux profiles on VM hosts
+
+15.2 Data Protection
+All passwords hashed with bcrypt (cost factor 12+)
+Flag values stored hashed (SHA-256) — never in plaintext
+API keys and secrets stored in environment variables only — never in code
+TLS 1.3 enforced for all connections
+HSTS preload enabled
+Database encryption at rest (Supabase/AWS managed)
+Evidence files encrypted in object storage
+
+15.3 Input Validation & Access Control
+All user inputs validated with Zod schemas on the server
+SQL injection prevention via Prisma parameterized queries
+XSS prevention via React (JSX auto-escapes all dynamic values)
+CSRF tokens on all state-changing requests
+Row Level Security (RLS) in Supabase — users can only read own data
+Flag submission: server-side comparison only — flag value never exposed to client
+
+15.4 Rate Limiting
+Global: 100 requests per 15-minute window per IP
+Flag submission: 10 attempts per minute per session
+Lab start: 5 labs per hour per user (free tier)
+AI queries: 20 per hour per user (free tier)
+Auth endpoints: 5 failed attempts triggers temporary lockout
+
+16. AI Investigator — The Differentiator
+The AI Investigator is an embedded assistant inside every active lab session. It is the feature that sets Cyber Detective apart from every other platform — providing contextual guidance without just giving away answers.
+
+16.1 What It Can Do
+Explain what a specific Event ID means and why it matters
+Explain suspicious log entries in plain language
+Suggest what to investigate next based on current findings
+Give progressive hints — vague at first, more specific on repeat asks
+Validate a user theory: give progressive confirmation or redirection
+Teach a concept: "Kerberoasting is when an attacker requests a service ticket..."
+Summarize all evidence found so far into a running timeline
+Help structure the investigation report
+
+16.2 What It Cannot Do
+Reveal flag values directly — ever
+Execute commands or interact with the lab environment
+Access information outside the current case context
+Discuss topics unrelated to the active investigation
+
+16.3 AI Architecture
+Model
+Claude 3.5 Sonnet or GPT-4o (with fallback)
+Context Window
+Up to 128k tokens — can include evidence excerpts
+System Prompt
+DFIR mentor role — progressive hints, never reveal flags, adapt to skill level
+Session Context
+Includes: case story, evidence accessed, flags already solved, hints given, time remaining
+Rate Limit
+20 queries/hour free tier, 60/hour Pro
+XP Cost
+Free initially; potentially 5 XP per query in future (optional)
+Safety
+Automated tests check for flag leakage, all interactions logged for review
+
+16.4 Hint Level System
+Level 1 — Subtle
+"Have you examined all the log files? Sometimes the answer is in an unexpected place."
+Level 2 — Directive
+"Look closely at auth.log around the time of the Nginx alert."
+Level 3 — Specific
+"Check auth.log line ~847. What's the source IP of the successful SSH login after the failed attempts?"
+The AI advances hint levels automatically based on how long the user has been stuck and how many times they have asked.
+
+17. Community Features
+17.1 Social Features
+Follow other investigators — see their activity in a feed
+Like and comment on case write-ups (with spoiler tag system)
+Share investigation timeline (auto-blurs flags for others)
+User-to-user messaging (optional, Phase 6)
+Discord integration — role sync based on XP tier
+
+17.2 Competitions
+Format
+Description
+Frequency
+Weekly Sprint
+Fastest completion of a new case wins
+Weekly
+Case of the Month
+Community votes on hardest case, top solver highlighted
+Monthly
+Seasonal Event
+Multi-case storyline with narrative arc
+Quarterly
+Live Investigation
+Scheduled start time — all users begin simultaneously
+Monthly
+Team Challenge
+Guilds compete for total XP across a weekend
+Monthly
+
+17.3 Guilds / Teams
+Create a guild with name, tag (up to 10 chars), and description
+Roles: leader, officer, member
+Guild leaderboard based on aggregate XP
+Guild-exclusive challenges (invite-only competition)
+
+17.4 Certifications (Phase 6)
+Cyber Detective Foundation — complete 5 beginner/easy cases
+DFIR Analyst — complete 15 cases across categories + submit a scored report
+Advanced Incident Responder — complete 30 cases + pass proctored challenge
+Certificates shareable on LinkedIn, importable to Credly
+
+18. Enterprise Version
+18.1 Enterprise-Specific Features
+Private lab instances — company cases never visible to public
+Custom cases — simulate your own infrastructure and incidents
+Employee dashboard — track team skill levels and progress
+SOC simulation exercises — scheduled team-wide incident drills
+API integration — connect to internal LMS (Moodle, Canvas, Cornerstone)
+SSO — SAML 2.0 / OIDC support for corporate identity providers
+Audit logs — compliance-ready export of all employee activity
+SLA guarantees — 99.9% uptime commitment
+Dedicated support — named CSM + priority ticket queue
+
+18.2 Pricing Tiers
+Tier
+Price
+Key Limits
+Key Features
+Free
+$0/month
+3 concurrent labs max
+Static evidence labs, community leaderboard, 5 cases
+Pro
+$19/month
+10 concurrent labs
+Docker labs, AI Investigator, certificates, extensions
+Team
+$49/month/5 users
+25 concurrent labs
+Team leaderboard, group competitions, bulk billing
+Enterprise
+Contact us
+Unlimited
+Windows AD labs, custom cases, SSO, audit logs, SLA
+
+19. Development Roadmap
+19.1 Phase 1 — MVP (Months 1–2)
+Deliverables
+  ✓  User authentication (signup, login, email verify, OAuth)
+  ✓  5 complete cases with static evidence files
+  ✓  Evidence viewer with file browser and log viewer
+  ✓  Flag submission system with server-side validation
+  ✓  Scoring and XP calculation
+  ✓  User profile page with statistics
+  ✓  Global leaderboard
+  ✓  Deploy to VPS (Nginx + Supabase)
+  ✓  SSL certificate + basic monitoring
+
+19.2 Phase 2 — Docker Labs (Months 3–4)
+Deliverables
+  ✓  Docker Engine setup on VPS
+  ✓  ttyd browser terminal integration
+  ✓  Lab Orchestrator API (start/stop/cleanup containers)
+  ✓  3 Linux forensics interactive cases
+  ✓  Session time tracking and expiration
+  ✓  Evidence injection automation
+  ✓  Scale test: 50 concurrent users
+
+19.3 Phase 3 — Multi-Machine Labs (Months 5–6)
+Deliverables
+  ✓  Docker Compose support for multi-container scenarios
+  ✓  Internal networking between containers
+  ✓  3 multi-machine cases (web breach, lateral movement)
+  ✓  Pro subscription tier + Stripe billing
+  ✓  Lab template system (reusable configurations)
+  ✓  Kubernetes research and prototype
+
+19.4 Phase 4 — Windows AD Labs (Months 7–9)
+Deliverables
+  ✓  Proxmox VE setup on dedicated server
+  ✓  Windows Server 2022 base templates
+  ✓  Apache Guacamole — RDP in browser
+  ✓  2 Active Directory attack investigation cases
+  ✓  VM snapshot management for fast cloning
+  ✓  Windows evidence injection automation (WinRM)
+
+19.5 Phase 5 — AI Investigator (Months 10–11)
+Deliverables
+  ✓  AI Investigator API integration (Anthropic / OpenAI)
+  ✓  Context-aware hint generation
+  ✓  Progressive hint levels (3-tier)
+  ✓  Evidence summarization feature
+  ✓  Guardrails: no flag leakage, rate limiting
+  ✓  AI report grading for Investigation Reports
+  ✓  All interactions logged for quality review
+
+19.6 Phase 6 — Scale & Enterprise (Month 12+)
+Deliverables
+  ✓  Full Kubernetes migration
+  ✓  Auto-scaling based on queue depth
+  ✓  Enterprise features: SSO, private cases, audit logs
+  ✓  Custom case builder (GUI)
+  ✓  Community write-up sharing
+  ✓  Certification system
+  ✓  API documentation for integrations
+  ✓  SOC2 Type II preparation
+
+19.7 Future Phases (Year 2+)
+Phase 7 (Month 18)
+Mobile app — evidence viewer, flag submission, case browsing
+Phase 8 (Month 24)
+Live attack simulation — real-time SOC response with scoring
+Phase 9 (Month 30)
+Case marketplace — community creates cases, revenue share
+Phase 10 (Month 36)
+ML-generated unique cases per user — never the same investigation twice
+
+20. Builder Learning Path (30 Days)
+This is the ordered technical learning path to go from zero to working MVP.
+
+Week 1 — Docker & Linux
+Day
+Topic
+Resources / Output
+1–2
+Linux fundamentals
+Commands: bash, file system, permissions, processes, grep, awk, sed
+3–4
+Docker basics
+docker run/ps/stop/rm/exec/logs, docker images, Dockerfile
+5–6
+Docker Compose
+docker-compose.yml, networks, volumes, depends_on
+7
+First forensic container
+Ubuntu image with evidence files, test locally
+
+Week 2 — Browser Terminal & Web Integration
+Day
+Topic
+Output
+8–9
+ttyd setup
+Install ttyd on Ubuntu, expose bash via HTTPS, add auth
+10–11
+Next.js basics
+Create app, API routes, Server Actions, environment variables
+12–13
+Integration
+Button → API → Start Docker + ttyd → Return terminal URL
+14
+First working prototype
+One Linux lab running, browser terminal working
+
+Week 3 — Database & User System
+Day
+Topic
+Output
+15–16
+PostgreSQL + Supabase
+Create tables, Row Level Security, Supabase project
+17–18
+Authentication
+Supabase Auth, login/signup pages, protected routes
+19–20
+Lab sessions table
+Track session lifecycle in DB, expiration cron job
+21
+Complete user flow
+Login → Browse → Start Lab → Investigate → Submit Flag
+
+Week 4 — Polish & Deployment
+Day
+Topic
+Output
+22–23
+Evidence viewer
+File browser component, log viewer, basic PCAP display
+24–25
+Flag system
+Flag submission form, server-side validation, score update
+26–27
+UI polish
+Tailwind styling, responsive layout, loading states
+28–29
+VPS deployment
+DigitalOcean/Hetzner, Docker + Nginx, SSL (Let's Encrypt)
+30
+Launch MVP
+3 sample cases, invite 10 beta testers, collect feedback
+
+21. First Prototype Blueprint
+Build this first. Do not attempt Active Directory or multi-machine until this works perfectly.
+
+21.1 Case 001 — Linux Server Breach
+Title
+Linux Server Breach
+Difficulty
+Beginner
+Estimated Time
+30 minutes
+Points
+100 XP
+Lab Type
+Type B — Linux Interactive (Docker)
+Story
+Acme Corp's web server was defaced. You are the incident responder. Analyze the evidence and reconstruct the attack.
+
+◆ Evidence Files
+/var/log/auth.log — contains failed SSH attempts followed by a successful login from an unknown IP
+/var/log/nginx/access.log — contains suspicious requests including a web shell upload
+/home/user/.bash_history — attacker commands run after gaining access
+/tmp/malicious.sh — the reverse shell script the attacker deployed
+
+◆ Objectives & Flags
+Find the attacker's IP address (format: xxx.xxx.xxx.xxx)
+Identify the compromised user account (format: username)
+Find the reverse shell command used (exact command string)
+Determine the persistence mechanism (file path)
+
+21.2 Project File Structure
+cyber-detective/
+├── frontend/                     Next.js application
+│   ├── app/
+│   │   ├── (auth)/login/page.tsx
+│   │   ├── (auth)/register/page.tsx
+│   │   ├── cases/page.tsx         Case list
+│   │   ├── cases/[slug]/page.tsx  Case detail
+│   │   ├── lab/[sessionId]/page.tsx  Active lab
+│   │   └── api/                  API routes
+│   ├── components/
+│   │   ├── EvidenceExplorer.tsx
+│   │   ├── Terminal.tsx
+│   │   ├── FlagSubmit.tsx
+│   │   └── Timer.tsx
+│   └── lib/supabase.ts, docker.ts
+├── orchestrator/                 Lab management service
+│   ├── index.js
+│   ├── dockerManager.js
+│   └── sessionCleaner.js
+├── evidence/                     Evidence files per case
+│   ├── case-001/auth.log, access.log, bash_history, malicious.sh
+│   └── case-002/...
+├── docker/                       Lab container definitions
+│   └── Dockerfile.ubuntu-forensics
+├── scripts/setup.sh, deploy.sh, backup.sh
+├── docker-compose.yml            Full stack (dev)
+└── .env.local / .env.production
+
+21.3 Environment Variables
+# Database
+DATABASE_URL="postgresql://postgres:password@localhost:5432/cyberdetective"
+NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
+SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
+
+# Infrastructure
+DOCKER_HOST="unix:///var/run/docker.sock"
+LAB_NETWORK_PREFIX="172.18"
+REDIS_URL="redis://localhost:6379"
+
+# AI (Phase 5)
+ANTHROPIC_API_KEY="sk-ant-..."
+OPENAI_API_KEY="sk-..."
+
+# Storage
+AWS_BUCKET_NAME="cyberdetective-evidence"
+AWS_REGION="us-east-1"
+
+# Email
+RESEND_API_KEY="re_..."
+
+# Monitoring
+SENTRY_DSN="https://..."
+
+22. Deployment Guide
+22.1 VPS Server Setup (Ubuntu 22.04)
+Update system: sudo apt update && sudo apt upgrade -y
+Install Docker: curl -fsSL https://get.docker.com | sh && sudo usermod -aG docker $USER
+Install Node.js 20: via NodeSource setup script
+Clone repository: git clone https://github.com/... && cd cyber-detective
+Copy and fill .env.production from .env.example
+Start services: docker-compose -f docker-compose.prod.yml up -d
+Install Nginx and configure as reverse proxy
+SSL: sudo certbot --nginx -d cyberdetective.com
+Setup cron for lab cleanup: */1 * * * * /path/to/cleanup.sh
+Setup daily backup: 0 2 * * * /path/to/backup.sh
+
+22.2 Recommended VPS Providers
+Provider
+Plan
+Specs
+Estimated Cost
+Hetzner
+CX31
+2 vCPU, 8 GB RAM, 80 GB SSD
+~$8/month
+Hetzner
+CX41
+4 vCPU, 16 GB RAM, 160 GB SSD
+~$16/month (recommended MVP)
+DigitalOcean
+Droplet General
+4 vCPU, 16 GB RAM
+~$48/month
+Contabo
+VPS M
+6 vCPU, 16 GB RAM, 400 GB SSD
+~$14/month (budget option)
+
+23. Pre-Launch Checklists
+23.1 MVP Launch Checklist
+Authentication working — signup, login, email verification
+At least 3 complete cases with evidence files
+Flag submission and scoring working correctly
+User profile page with statistics
+Global leaderboard displaying correctly
+At least 1 interactive Docker lab working
+Database with sessions and automated cleanup cron
+Deployed to VPS with SSL certificate
+Backup system configured
+Monitoring: Uptime Robot alerting on downtime
+Terms of Service and Privacy Policy pages
+10–20 beta testers invited and feedback collected
+Bug reporting system (GitHub Issues or email)
+
+23.2 Public Launch Checklist
+10+ cases across multiple categories and difficulties
+Pro subscription tier with Stripe payment integration
+Email notifications (verification, lab expiry, new case)
+Social media accounts created (Twitter/X, LinkedIn)
+User-facing documentation / FAQ page
+Support email configured
+Performance tested with 100 concurrent users
+Basic security audit completed
+Press kit prepared (logo, screenshots, one-liner description)
+Launch plan: Product Hunt, Hacker News, cybersecurity subreddits, Discord communities
+
+24. Monitoring & Analytics
+24.1 Business Metrics to Track
+Daily Active Users (DAU) and Monthly Active Users (MAU)
+Cases started vs completed (completion funnel)
+Average investigation time per case
+User retention: Day 1, Day 7, Day 30
+Conversion rate: free tier → Pro subscription
+Monthly Recurring Revenue (MRR) and Annual Recurring Revenue (ARR)
+
+24.2 Technical Metrics to Track
+Lab start success rate (target: >99%)
+Average lab provisioning time (target: <15 seconds for Docker, <3 min for Windows)
+Concurrent labs running (capacity planning)
+API p95 response time (target: <500ms)
+Error rate: 4xx and 5xx responses
+Server CPU, memory, and disk utilization
+
+24.3 Engagement Metrics
+AI Investigator queries per session
+Hints used per case (correlates with difficulty calibration)
+Report submission rate (% of case completions with a report)
+Comments per case (community health indicator)
+
+25. Final Vision & Long-Term Goal
+
+The Long-Term Goal
+Create the world's first major platform where people do not simply hack machines. They become digital detectives who investigate real cyber crimes — and get hired because of it.
+
+The Complete Platform — Final State
+Learn
+Practice
+Prove
+Courses + AI Mentor
+Case library (100+ scenarios)
+Community write-ups
+Docker Linux Labs
+Windows AD Labs
+Cloud simulation labs
+Platform certifications
+Credly badges
+Public profile + portfolio
+
+Why Cyber Detective Will Win
+Existing platforms (HTB, TryHackMe) focus on offense. Blue team has no equivalent home.
+DFIR skills are critically understaffed — companies struggle to find trained analysts.
+The investigation format trains real job skills: log analysis, report writing, timeline reconstruction.
+The AI Investigator adapts to every skill level — nobody gets stuck, nobody gets it handed to them.
+Enterprise training is a massive underserved market — $50M+ opportunity.
+
+Build the MVP. Launch. Iterate.
+The first grain of wheat is a working Docker terminal with one case. Everything else follows.

@@ -1,0 +1,79 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Database
+db/*.db
+db/*.db-journal
+data/
+
+# Development
+dev.log
+server.log
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files (use docker-compose env_file or --env-file)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Misc
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Download/QA screenshots
+download/
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Tool results
+tool-results/
+
+# Agent context
+agent-ctx/
+
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Examples
+examples/
+
+# Sandbox scripts
+start-server.sh
+keep-alive.sh
+Caddyfile
+
+# Prisma migrations (we use db push in production)
+prisma/migrations/
